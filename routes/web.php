@@ -19,36 +19,39 @@ use App\Http\Controllers\CustomerController;
 //     return view('welcome');
 // });
 
-Route::get('/',  [CarController::class, 'index']);
-Route::get('/cars', [CarController::class, 'index'])->name('cars.list');
+Route::controller(CarController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/cars', 'index')->name('cars.list');
+    Route::get('/cars/{id}/purchases', 'getPurchases');
 
-// Route::view('/cars/create', 'cars/create');
-Route::get('/cars/create', [CarController::class, 'create'])->name('cars.create');
-Route::post('/cars/create', [CarController::class, 'store']);
+    Route::view('/cars/create', 'cars.create')->name('cars.create');
+    Route::post('cars/create', 'store');
 
-Route::get('/cars/edit/{id}', [CarController::class, 'edit']);
-Route::post('/cars/edit/{id}', [CarController::class, 'update']);
+    Route::get('/cars/edit/{id}', 'edit');
+    Route::post('/cars/edit/{id}', 'update');
 
-Route::get('/cars/delete/{id}', [CarController::class, 'delete']);
-
-// ------------------------------------------------------------------------------------
-
-Route::get('/users', [CustomerController::class, 'index'])->name('users.list');
-
-Route::get('/users/create', [CustomerController::class, 'create']);
-Route::post('/users/create', [CustomerController::class, 'store']);
-
-Route::get('/users/edit/{id}', [CustomerController::class, 'edit']);
-Route::post('/users/edit/{id}', [CustomerController::class, 'update']);
-
-Route::get('/users/delete/{id}', [CustomerController::class, 'delete']);
+    Route::get('/cars/delete/{id}', 'delete');
+});
 
 // ------------------------------------------------------------------------------------
 
-Route::get('/cars/{id}/purchases', [CarController::class, 'getPurchases']);
+Route::controller(CustomerController::class)->group(function (){
+    Route::get('/users', 'index')->name('users.list');
+    Route::get('/users/{id}/purchases', 'getPurchases');
+    
+    Route::get('/users/create', 'create');
+    Route::post('/users/create', 'store');
 
-Route::get('/users/{id}/purchases', [CustomerController::class, 'getPurchases']);
-Route::get('/users/{id}/buyCar', [CustomerController::class, 'buyCar']);
-Route::get('/users/{id}/buyCar/{cid}', [CustomerController::class, 'buyCarStore']);
-Route::get('/users/{id}/ownCar/edit', [CustomerController::class, 'ownerCarEdit']);
-Route::get('/users/{id}/ownCar/edit/delete/{cid}', [CustomerController::class, 'ownerCarDelete']);
+    Route::get('/users/edit/{id}', 'edit');
+    Route::post('/users/edit/{id}', 'update');
+
+    Route::get('/users/delete/{id}', 'delete');
+
+    //------------------------------------------------------------------------------
+
+    Route::get('/users/{id}/buyCar', 'buyCar');
+    Route::get('/users/{id}/buyCar/{cid}', 'buyCarStore');
+
+    Route::get('/users/{id}/ownCar/edit', 'ownerCarEdit');
+    Route::get('/users/{id}/ownCar/edit/delete/{cid}', 'ownerCarDelete');
+});
