@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Car;
+use App\Models\Purchases;
 
 class CarController extends Controller
 {
@@ -56,6 +57,18 @@ class CarController extends Controller
         $car->delete();
 
         return redirect()->route('cars.list');
+    }
+
+    public function getPurchases($id){
+        $purchases = Purchases::where('car_id', $id)->with('customer')->get();
+        $purchasedData = $purchases->map(function($purchase) {
+            return [
+                'id' => $purchase->id,
+                'name' => $purchase->customer->name,
+                'phone' => $purchase->customer->phone
+            ];
+        });
+        return response()->json($purchasedData);
     }
 
 }

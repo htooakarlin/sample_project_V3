@@ -42,3 +42,13 @@ Route::get('/users/edit/{id}', [CustomerController::class, 'edit']);
 Route::post('/users/edit/{id}', [CustomerController::class, 'update']);
 
 Route::get('/users/delete/{id}', [CustomerController::class, 'delete']);
+
+// ------------------------------------------------------------------------------------
+
+Route::get('/cars/{id}/purchases', [CarController::class, 'getPurchases']);
+
+Route::get('/users/{id}/purchases', [CustomerController::class, 'getPurchases']);
+Route::get('/users/{id}/buyCar', [CustomerController::class, 'buyCar']);
+Route::get('/users/{id}/buyCar/{cid}', [CustomerController::class, 'buyCarStore']);
+Route::get('/users/{id}/ownCar/edit', [CustomerController::class, 'ownerCarEdit']);
+Route::get('/users/{id}/ownCar/edit/delete/{cid}', [CustomerController::class, 'ownerCarDelete']);

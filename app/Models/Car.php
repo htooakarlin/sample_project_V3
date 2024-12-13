@@ -9,4 +9,12 @@ class Car extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function customer() {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function purchase() {
+        return $this->hasOne(Purchase::class);
+    }
 }

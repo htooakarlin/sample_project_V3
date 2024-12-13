@@ -232,10 +232,10 @@
                     window.location.href = `/users/delete/${selectedID}`;
                 }
                 buyCar_btn.onclick = function() {
-                    window.location.href = `/articles/users/${selectedID}/buyCar/`;
+                    window.location.href = `/users/${selectedID}/buyCar`;
                 }
                 buyCar_edit_btn.onclick = function() {
-                    window.location.href = `/articles/users/${selectedID}/ownCar/edit/`;
+                    window.location.href = `/users/${selectedID}/ownCar/edit/`;
                 }
 
                 selectedItemText.textContent = `Selected User ID: ${selectedID}`;
